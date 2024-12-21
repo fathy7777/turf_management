@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <table border="1px">
+        <tr>
+            <th>
+                id
+
+            </th>
+            <th>
+                User
+            </th>
+            <th>
+                date
+            </th>
+            <th>
+                feedback
+            </th>
+            <th>
+                reply
+            </th>
+        </tr>
+        {% for i in obg %}
+   
+        <tr>
+        <td>{{i.id}}</td>
+            <td>{{i.USER.name}}</td>
+            <td>{{i.date}}</td>
+            <td>{{i.complaint}}</td>
+            <td>{{i.reply}}</td>
+            <td><a href="/reply/{{i.id}}">reply</a></td>
+            
+            </td>
+            
+            
+        </tr>
+        {% endfor %}
+   
+    </table>
+</body>
+</html>

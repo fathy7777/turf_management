@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <table border="1px">
+        
+           
+        <tr>
+            <td>username</td>
+            <td>age</td>
+            <td>gender</td>
+            <td>address</td>
+            <td>number</td>
+            <td>email</td>
+            <td>
+                <a href="#"></a>
+            </td>
+        </tr>
+        {% for i in obg %}
+        <tr>
+            <td>{{i.LOGIN.username}}</td>
+            <td>{{i.age}}</td>
+             <td>{{i.gender}}</td>
+             <td>{{i.address}}</td>
+            <td>{{i.phoneno}}</td>
+            <td>{{i.email}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

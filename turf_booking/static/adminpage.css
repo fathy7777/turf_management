@@ -1,0 +1,88 @@
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar{
+    width: 250px;
+    height: 90vh;
+    background: linear-gradient(to bottom,#0f0c29,#302b63,#24243e);
+    color: aliceblue;
+    padding: 10px;
+    cursor: pointer;
+  
+
+}
+a{
+    padding-top: 20px;
+    height: 40px;
+    /* border: 1px solid red; */
+    padding: 20px;
+    margin-top: 20px;
+    display: block;
+
+}
+
+.mainflex{
+    display: flex;
+    margin-top: 50px;  
+    /* justify-content: space-between; */
+}
+.user{
+    border: solid 1px #0f0c29;
+    height: 100px;
+    width: 200px;
+    margin-left: 20px;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: bolder;
+    padding-top: 20px;
+    box-shadow: 10px 20px 34px rgba(1, 125, 234, 0.684);
+    display: inline-block;
+    margin-top: 10px;
+
+}
+.complaint{
+    border: solid 1px #0f0c29;
+    height: 100px;
+    width: 200px;
+    margin-left: 20px;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: bolder;
+    padding-top: 20px;
+    box-shadow: 10px 20px 34px rgba(1, 125, 234, 0.684);
+    display: inline-block;
+    margin-top: 10px;
+}
+.turfowner{
+    border: solid 1px #0f0c29;
+    height: 100px;
+    width: 200px;
+    margin-left: 20px;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: bolder;
+    padding-top: 20px;
+    box-shadow: 10px 20px 34px rgba(1, 125, 234, 0.684);
+    display: inline-block;
+    margin-top: 10px;
+}
+.product{
+    border: solid 1px #0f0c29;
+    height: 100px;
+    width: 200px;
+    margin-left: 20px;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: bolder;
+    padding-top: 20px;
+    box-shadow: 10px 20px 34px rgba(1, 125, 234, 0.684);
+    display: inline-block;
+    margin-top: 10px;
+}
+
+
+
+    

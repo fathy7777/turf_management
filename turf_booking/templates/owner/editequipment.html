@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token%}
+
+        <label for="name">equipmentName:</label>
+        <input type="text" name="equipment" value="{{obg.equipment}}"><br>
+        <label for="">quantity:</label>
+        <input type="text" name="quantity" value="{{obg.quantity}}" id=""><br>
+        <label for="">price</label>
+        <input type="text" name="price" value="{{obg.price}}" id=""><br>
+        <label for="">description</label>
+        <input type="text" name="description" value="{{obg.description}}" id=""><br>
+        <button type="submit">add</button>
+    </form>
+</body>
+</html>
