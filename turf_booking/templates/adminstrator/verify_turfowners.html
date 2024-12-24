@@ -24,6 +24,9 @@
                 phone
             </th>
             <th>
+                status
+            </th>
+            <th>
                 accept/reject
             </th>
         </tr>
@@ -34,10 +37,12 @@
             <td>{{i.place}}</td>
             <td>{{i.email}}</td>
             <td>{{i.phone}}</td>
+            <td>{{i.LOGIN.Type}}</td>
             
             <td>
                 <a href="/accept_turf/{{i.LOGIN.id}}">accept</a>/
                 <a href="/reject_turf/{{i.LOGIN.id}}">reject</a>
+                
             </td>
         </tr>
         {% endfor %}

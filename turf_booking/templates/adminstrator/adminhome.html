@@ -1,33 +1,104 @@
 {% load static %}
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="{% static 'adminpage.css' %}">
-<body>
-    <div class ="main">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sjahf</title>
+    <link rel="stylesheet" href="{%static 'adminpage.css' %}">
+    <head>
+        <!-- Adicione o link para Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
 
-        <h1 style="text-align: center;">admin class</h1>
-        <div class="mainflex">
-        <div class="sidebar">
-            <a href="/Users/"><i class="fa-solid fa-user"></i>user</a><br>
-            <a href="/complaints/"> <i class="fa-solid fa-file-circle-check"></i>complaint</a><br>
-            <a href="/turfowner/"><i class="fa-solid fa-user-tie"></i>turfowner</a><br>
-            <a href="/viewequipment/"><i class="fa-solid fa-cart-shopping"></i>product</a><br>
-            <a href="/Viewbooking/"><i class="fa-solid fa-hand-holding-dollar"></i>payment</a><br>
+    <body>
+        <header>
+            <h1>Admin Dash</h1>
+            <nav>
+                <ul>
+                    <li><a href="/Users/">User</a></li>
+                    <li><a href="/complaints/">complaint</a></li>
+                    <li><a href="/turfowner/">Turf</a></li>
+                    <li><a href="/logout/">logout</a></li>
+                </ul>
+            </nav>
+            <i id="toggle-theme" class="fas fa-adjust theme-icon"></i>
+        </header>
+        <!-- Resto do conteúdo -->
+    </body>
 
-    </div>
-<div>
-    <div class="user"><h3>user</h3>  </div>
-    <div class="complaint"><h3>complaint</h3></div>
-    <div class="turfowner"><h3>turfowner</h3></div>
-    <div class="product"><h3>product</h3></div>
+    <section id="sobre">
+        <h2>Sportin</h2>
+        <p>Descrição sobre você e suas habilidades.</p>
+    </section>
 
-</div>
-</div>
+    <section id="projetos">
+        <h2>Turfs</h2>
+        <div class="projetos-container">
+            <!-- Exemplo de projeto com imagem -->
+            <div class="projeto" data-category="web">
+                <img src="https://cdn.discordapp.com/attachments/1277796210916462645/1289764974872498318/Moletom.png?ex=671eecbc&is=671d9b3c&hm=7a5fe7af545d6cd7229d9787538bc5b4fe9b3c40579a2a2b528c949b53d7bd18&" alt="Projeto 1">
+                <h3>Projeto 1</h3>
+                <p>Descrição do projeto 1.</p>
+            </div>
+            <!-- Repita para mais projetos -->
+            <div class="projeto" data-category="web">
+                <img src="https://cdn.discordapp.com/attachments/1277796210916462645/1289764882199220234/Mackbook_Pro.png?ex=671eeca6&is=671d9b26&hm=f29756222fbf5aa18a6fcfcf1a54c286f44e8a21025e65c803d22cf9e3fae8ea&" alt="Projeto 2">
+                <h3>Projeto 2</h3>
+                <p>Descrição do projeto 2.</p>
+            </div>
+            <!-- Adicione mais projetos conforme necessário -->
+            <div class="projeto" data-category="web">
+                <img src="https://cdn.discordapp.com/attachments/1277796210916462645/1289764869255598101/GARRAFA_3.png?ex=671eeca3&is=671d9b23&hm=976674f0d9011e00106a1cc9cf51bf82caaad0f885e13079a30680b3f6dab80b&" alt="Projeto 3">
+                <h3>Projeto 3</h3>
+                <p>Descrição do projeto 3.</p>
+            </div>
+            <!-- Continue até ter 12 projetos -->
+        </div>
+    </section>
 
-    </div>
+    <section id="contato">
+        <section id="contato">
+            <h2>Contato</h2>
+            <a href="https://example.com/contact" class="contato-button">
+                <i class="fas fa-envelope"></i> <!-- Example icon for an envelope -->
+            </a>
+        </section>
+    </section>
+
+    <footer>
+        <p>© 2023 Meu Nome</p>
+    </footer>
+
+    <script>
+        document.getElementById('toggle-theme').addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+});
+
+document.getElementById('secondary-color-picker').addEventListener('input', function() {
+    document.documentElement.style.setProperty('--secondary-color', this.value);
+});
+
+document.querySelectorAll('.categoria').forEach(button => {
+    button.addEventListener('click', function() {
+        const category = this.getAttribute('data-category');
+        const projects = document.querySelectorAll('.projeto');
+
+        projects.forEach(project => {
+            if (category === 'all' || project.getAttribute('data-category') === category) {
+                project.style.display = 'block';
+            } else {
+                project.style.display = 'none';
+            }
+
+            document.querySelectorAll('.projeto').forEach((project, index) => {
+                project.style.setProperty('--i', index);
+            });
+        });
+    });
+});            
+    </script>
 </body>
-</html>
+</html>            

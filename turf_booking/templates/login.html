@@ -1,17 +1,18 @@
-	<!DOCTYPE html>
+{% load static %}
+
+<!DOCTYPE html>
 <html>
 <head>
 	<title>register</title>
 	<link rel="stylesheet" type="text/css" href="styles.css">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-
+<link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
 	<div class="main">  	
 		<input type="checkbox" id="chk" aria-hidden="true">
 
-			<!-- <div class="signup">
+			<div class="signup">
 				<form>
                     
 					<label for="" aria-hidden="true">Register</label>
@@ -22,15 +23,15 @@
 					<input type="password"  placeholder="password" required="">
 					<button>Register</button>
 				</form>
-			</div> -->
+			</div>
 
 			<div class="login">
-				<form method="post">
+				<form method="post"> 
 					{% csrf_token %}
 					<label for="chk" aria-hidden="true">Login</label>
 					<input type="text"  placeholder="email" required="" name="username">
-					<input type="password" name="password" placeholder="password" required="">
-					<button type="submit">Login</button>
+					<input type="password" name="password" placeholder="password">
+					<button type="submit"> Login</button>
 				</form>
 			</div>
 	</div>

@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views import View
 
-from .forms import equipmentform
+from .forms import equipmentform, TurfForm
 
 from .models import *
 
@@ -20,10 +20,14 @@ class viewlogin(View):
         password=request.POST['password']
         login_obj=LoginTable.objects.get(username=username, password=password)
         if login_obj.Type=="admin":
-            return render(request,"owner/adminhome.html")
+            return render(request,"adminstrator/adminhome.html")
         elif login_obj.Type=="turf":
             return render(request,"owner/turfownerhome.html")
     
+
+class Logout(View):
+    def get(self, request):
+        return HttpResponse('''<script> alert('Logged out successfully'); window.location = '/' </script> ''')
 
 # /////////////////////////////////// ADMIN /////////////////////////////////////    
 
@@ -74,6 +78,26 @@ class viewequipment(View):
         return render (request,'adminstrator/viewequipments.html',{'obg':obg})
     
 # ////////////////////////////////////// owner ////////////////////////////////////////////
+class turfregister(View):
+    def get(self,request):
+        return render(request,'owner/turfregister.html')
+    def post(self,request):
+        form = turfregisterform(request.POST)
+        if form.is_valid():
+                if LoginTable.objects.filter(username=request.POST['username']).exists():
+                    return HttpResponse('''<script>alert("username already exists! please choose a different one.");window.location="/"<script>''')
+                Login_instance = LoginTable.objects.create_user(
+                    user_type='pending',
+                    username=request.POST['username'],
+                    password=request.POST['password']
+                )    
+                reg_form = form.save(commit=False)
+                reg_form.LOGIN = Login_instance
+                reg_form.save()
+                return HttpResponse('''<script>alert("registered successfully!");window.location="/"</script>''')
+
+
+
 
 class Addmanagment(View):
     def get(self,request):
@@ -142,3 +166,68 @@ class deleteequipment(View):
         obg=EquipmentTable.objects.get(id=id)
         obg.delete()
         return HttpResponse('''<script>alert("equipment deleted successfully");window.location="/manageequips"</script>''')
+    
+
+class Addturf(View):
+    def get(self, request): 
+        form = TurfForm()
+        return render(request, 'turf/addturf.html', {'form': form})
+    
+    def post(self, request):
+        form = TurfForm(request.POST, request.FILES)
+        if form.is_valid():
+            turf = form.save(commit=False)
+            turf.Ownername = Userprofile.objects.get(id=request.POST.get("userid"))
+
+            turf.save()
+
+            # Get slots from POST data
+            slots = request.POST.getlist("slots")
+            for slot_time in slots:
+                if slot_time.strip():  # Check for non-empty slot
+                    Slot.objects.create(
+                        turfid=turf,
+                        timeslot=slot_time.strip()
+                    )
+
+            return HttpResponse('''<script>alert("Turf and slots added successfully.");window.location="/turfapp/view/";</script>''')
+
+        
+        return render(request, 'turf/addturf.html', {'form': form})
+
+        
+class Viewturf(View):
+    def get(self, request):
+        try:
+            turfs =request.session['user_id']
+            requests=Turf.objects.filter(Ownername=turfs)
+        except Userprofile.DoesNotExist:
+            return HttpResponse("Userprofile not found for the current user.", status=404)
+        return render(request, 'turf/viewturf.html', {'turfs': requests})
+
+    
+class Deleteturf(View):
+    def get(self, request, id):
+        try:
+            turf = Turf.objects.get(id=id)
+            turf.delete() 
+            return HttpResponse('''<script>alert("Turf deleted successfully.");window.location="/turfapp/view/";</script>''')
+        except Turf.DoesNotExist:
+            return render(request, 'turf/viewturf.html', {'error': 'Turf not found'})
+
+       
+
+class Editturf(View):
+    def get(self, request, id):
+        turf = Turf.objects.get(pk=id)
+        form = TurfForm(instance=turf)
+        return render(request, 'turf/editturf.html', {'turf': form})
+    
+    def post(self, request, id):
+        turf = Turf.objects.get(pk=id)
+        form = TurfForm(request.POST,request.FILES,  instance=turf)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('''<script>alert("Turf Edited successfully.");window.location="/turfapp/view/";</script>''')
+        return render(request, 'turf/editturf.html', {'turf': form})
+    

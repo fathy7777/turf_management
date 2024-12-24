@@ -5,7 +5,6 @@ from .views import *
 
 
 urlpatterns = [
-    path('login/', Login.as_view(), name='login'),
     # ///////////////////////////// ADMIN ///////////////////////////////////////
 
     path('turfowner/', Turfowners.as_view(), name='turfowner'),
@@ -25,8 +24,14 @@ urlpatterns = [
     # ///////////////////////////// OWNER ///////////////////////////////////////
 
     path('',viewlogin.as_view(),name="Login"),
+    path('logout/', Logout.as_view(), name='logout'),
     path('manageequips',manageequips.as_view(), name='manageequips'),  
     path('deleteequipment/<int:id>',deleteequipment.as_view(), name='deleteequipment'),
     path('turfownerhome', turfownerhome.as_view(), name='turfownerhome'),
     path('turf_complaint/', turf_complaint.as_view(), name='turf_complaint'),
+    path('turfregister/', turfregister.as_view(), name='turfregister'),
+    path('add/', Addturf.as_view(), name='add_turf'),
+    path('view/', Viewturf.as_view(), name='view_turf'),
+    path('delete/<int:id>/', Deleteturf.as_view(), name='delete_turf'),
+    path('edit/<int:id>/', Editturf.as_view(), name='edit_turf'),
 ]

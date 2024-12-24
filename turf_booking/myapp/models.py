@@ -20,8 +20,33 @@ class turf(models.Model):
     LOGIN = models.ForeignKey(LoginTable, on_delete=models.CASCADE)
     name=models.CharField(max_length=100,null=True,blank=True)   
     phone=models.BigIntegerField(null=True,blank=True)
+    address=models.CharField(max_length=100,null=True,blank=True) 
     email=models.CharField(max_length=100,null=True,blank=True)
+    rent=models.CharField(max_length=100,null=True,blank=True)
+    image=models.FileField(upload_to='turf',null=True,blank=True)
+    location=models.CharField(max_length=100,null=True,blank=True)
     place=models.CharField(max_length=100,null=True,blank=True)
+    opentime=models.CharField(max_length=100,null=True,blank=True)
+    closingtime=models.CharField(max_length=100,null=True,blank=True)
+from django.db import models
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
+from django.utils import timezone
+
+class Log(models.Model):
+    action = models.CharField(max_length=100)
+    model = models.CharField(max_length=100)
+    instance_id = models.IntegerField(null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+@receiver(post_save)
+def log_addition(sender, instance, created, **kwargs):
+    if created:
+        Log.objects.create(action='Added', model=sender.__name__, instance_id=instance.id)
+
+@receiver(post_delete)
+def log_deletion(sender, instance, **kwargs):
+    Log.objects.create(action='Deleted', model=sender.__name__, instance_id=instance.id)
 
 class ComplaintTable(models.Model):
     complaint=models.CharField(max_length=100,null=True,blank=True)   
@@ -29,13 +54,16 @@ class ComplaintTable(models.Model):
     date=models.CharField(max_length=100,null=True,blank=True)
     USER=models.ForeignKey(UserTable,on_delete=models.CASCADE)
 
-class SlotTable(models.Model):
-    date=models.DateField(null=True,blank=True)     
-    fromtime=models.CharField(max_length=100,null=True,blank=True)
-    totime=models.CharField(max_length=100,null=True,blank=True)
+class slot(models.Model):
+    turfid=models.ForeignKey(turf, on_delete=models.CASCADE,null=True,blank=True)
+    timeslot=models.CharField(max_length=1000,null=True ,blank=True)
+    status=models.CharField(max_length=50,default=False)
+    is_active =models.BooleanField(default=True, blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class bookingtable(models.Model):
-    SLOT=models.ForeignKey(SlotTable,on_delete=models.CASCADE)    
+    SLOT=models.ForeignKey(slot,on_delete=models.CASCADE)    
     USER=models.ForeignKey(LoginTable,on_delete=models.CASCADE)
     DATE=models.DateField(null=True,blank=True)
     status=models.CharField(max_length=100,null=True,blank=True)
