@@ -33,4 +33,3 @@ class TurfForm(forms.ModelForm):
             if not all(slot_list):
                 raise forms.ValidationError("Please provide valid slots.")
         return slots
-    

@@ -1,4 +1,3 @@
-from string import printable
 from django.db import models
 
 # Create your models here.
@@ -28,25 +27,6 @@ class turf(models.Model):
     place=models.CharField(max_length=100,null=True,blank=True)
     opentime=models.CharField(max_length=100,null=True,blank=True)
     closingtime=models.CharField(max_length=100,null=True,blank=True)
-from django.db import models
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
-from django.utils import timezone
-
-class Log(models.Model):
-    action = models.CharField(max_length=100)
-    model = models.CharField(max_length=100)
-    instance_id = models.IntegerField(null=True, blank=True)
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-@receiver(post_save)
-def log_addition(sender, instance, created, **kwargs):
-    if created:
-        Log.objects.create(action='Added', model=sender.__name__, instance_id=instance.id)
-
-@receiver(post_delete)
-def log_deletion(sender, instance, **kwargs):
-    Log.objects.create(action='Deleted', model=sender.__name__, instance_id=instance.id)
 
 class ComplaintTable(models.Model):
     complaint=models.CharField(max_length=100,null=True,blank=True)   

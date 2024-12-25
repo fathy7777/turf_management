@@ -33,6 +33,16 @@ class Logout(View):
 
 
 
+class turf_register(View):
+    def post(self, request):
+        form=TurfForm(request.POST)
+        if form.is_valid():
+            f=form.save(commit=False)
+            obj=LoginTable.objects.create(username=request.POST['username'], password=request.POST['password'], Type='pending')
+            f.LOGIN=obj
+            f.save()
+            return HttpResponse('''<script> alert('Turf Registered Successfully'); window.location = '/';</script>''')
+
 
 class Turfowners(View):
     def get(self,request):

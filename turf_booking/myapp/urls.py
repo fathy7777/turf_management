@@ -25,6 +25,7 @@ urlpatterns = [
 
     path('',viewlogin.as_view(),name="Login"),
     path('logout/', Logout.as_view(), name='logout'),
+    path('turf_register/', turf_register.as_view(), name='turf_register'),
     path('manageequips',manageequips.as_view(), name='manageequips'),  
     path('deleteequipment/<int:id>',deleteequipment.as_view(), name='deleteequipment'),
     path('turfownerhome', turfownerhome.as_view(), name='turfownerhome'),
